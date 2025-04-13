@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Oral Cancer Detection</title>
+</head>
+<body style="text-align: center; font-family: Arial;">
+  <h2>🦷 Upload Oral Image for Cancer Detection</h2>
+
+  <form action="/predict" method="post" enctype="multipart/form-data" id="full-form">
+    <!-- Image Upload -->
+    <label for="image">Upload Image:</label><br>
+    <input type="file" name="image" accept="image/*" required><br><br>
+
+    <!-- Audio Upload -->
+    <h3>🗣️ Record Your Symptoms</h3>
+    <button type="button" id="start-btn">Start Recording</button>
+    <button type="button" id="stop-btn" disabled>Stop Recording</button><br><br>
+    <audio id="audio-playback" controls style="display: none;"></audio>
+    <input type="hidden" name="audio_blob" id="audio-blob"><br>
+
+    <!-- Symptoms Form -->
+    <h3>📝 Symptom Details</h3>
+
+    <label for="pain_level">Pain Level (0-10):</label>
+    <select name="pain_level" id="pain_level" required>
+      <option value="">Select</option>
+      <!-- You can also use Jinja loop here if rendering from Flask -->
+      <script>
+        for (let i = 0; i <= 10; i++) {
+          document.write(`<option value="${i}">${i}</option>`);
+        }
+      </script>
+    </select><br><br>
+
+    <label for="bleeding">Bleeding:</label>
+    <select name="bleeding" required>
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select><br><br>
+
+    <label for="swelling">Swelling:</label>
+    <select name="swelling" required>
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select><br><br>
+
+    <label for="duration">Duration of Symptoms:</label>
+    <input type="text" name="duration" placeholder="e.g. 2 weeks" required><br><br>
+
+    <label for="history">Past Medical History:</label>
+    <textarea name="history" rows="3" cols="40" placeholder="Describe any relevant history..." required></textarea><br><br>
+
+    <!-- Submit All Together -->
+    <button type="submit">🔍 Submit for Analysis</button>
+  </form>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    const startBtn = document.getElementById("start-btn");
+    const stopBtn = document.getElementById("stop-btn");
+    const audioPlayback = document.getElementById("audio-playback");
+    const audioBlobInput = document.getElementById("audio-blob");
+
+    startBtn.onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+
+      mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(audioChunks, { type: 'audio/wav' });
+        const url = URL.createObjectURL(blob);
+        audioPlayback.src = url;
+        audioPlayback.style.display = "block";
+
+        // Convert blob to base64 for form submission (Flask will decode it)
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          const base64data = reader.result;
+          audioBlobInput.value = base64data;
+        };
+        reader.readAsDataURL(blob);
+      };
+
+      mediaRecorder.start();
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    };
+
+    stopBtn.onclick = () => {
+      mediaRecorder.stop();
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+  </script>
+
+  <h3>📜 Instructions</h3>
+  <p>1. Upload an oral image.</p>
+  <p>2. Record a voice note about symptoms (optional).</p>
+  <p>3. Fill out the symptom form.</p>
+  <p>4. Click “Submit for Analysis”.</p>
+  <br><br>
+  <a href="/about">ℹ️ About</a>
+</body>
+</html>

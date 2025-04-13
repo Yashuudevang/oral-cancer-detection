@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prediction Result</title>
+</head>
+<body style="text-align: center; font-family: Arial;">
+  <h2>📊 Prediction Result</h2>
+  <p><strong>{{ prediction }}</strong></p>
+  <p>Confidence: {{ confidence }}%</p>
+
+  <img src="/{{ image_path }}" alt="Uploaded Image" width="300"/>
+
+  <!-- <form action="/download_pdf" method="post">
+    <input type="hidden" name="prediction" value="{{ prediction }}">
+    <input type="hidden" name="confidence" value="{{ confidence }}">
+    <input type="hidden" name="image_path" value="{{ image_path }}">
+    <input type="hidden" name="timestamp" value="{{ timestamp }}">  
+    <button type="submit">Download Report (PDF)</button> -->
+  <!-- </form> -->
+  <form action="/patient_download_pdf" method="POST">
+    <input type="hidden" name="prediction" value="{{ prediction }}">
+    <input type="hidden" name="confidence" value="{{ confidence }}">
+    <input type="hidden" name="image_path" value="{{ image_path }}">
+    <input type="hidden" name="timestamp" value="{{ timestamp }}">
+    <button type="submit">Download Patient PDF</button>
+</form>
+
+</body>
+</html>

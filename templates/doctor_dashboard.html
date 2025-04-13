@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+    <h2>Doctor Dashboard - Patient Records</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Image</th>
+            <th>Prediction</th>
+            <th>Confidence</th>
+            <th>Audio Note</th>
+            <th>Download Report</th>
+            <th>Doctor Reply</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for record in records %}
+        <tr>
+            <!-- Patient Image -->
+            <td><img src="{{ record.image_path }}" width="100"></td>
+
+            <!-- Prediction Details -->
+            <td>{{ record.prediction }}</td>
+            <td>{{ record.confidence }}%</td>
+
+            <!-- Uploaded Audio Note -->
+            <td>
+                {% if record.audio_path %}
+                    <audio controls>
+                        <source src="{{ url_for('static', filename=record.audio_path) }}" type="audio/wav">
+                    </audio>
+                {% else %}
+                    No audio
+                {% endif %}
+
+                <!-- Upload Audio Note -->
+                <form action="/upload_audio" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="audio" accept="audio/*" required>
+                    <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
+                    <button type="submit">Upload Audio</button>
+                </form>
+            </td>
+
+            <!-- PDF Report -->
+            <td>
+                <form method="post" action="/download_pdf">
+                    <input type="hidden" name="prediction" value="{{ record.prediction }}">
+                    <input type="hidden" name="confidence" value="{{ record.confidence }}">
+                    <input type="hidden" name="image_path" value="{{ record.image_path }}">
+                    <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
+                    {% if record.symptoms %}
+                        <input type="hidden" name="pain_level" value="{{ record.symptoms.pain_level }}">
+                        <input type="hidden" name="bleeding" value="{{ record.symptoms.bleeding }}">
+                        <input type="hidden" name="swelling" value="{{ record.symptoms.swelling }}">
+                        <input type="hidden" name="duration" value="{{ record.symptoms.duration }}">
+                        <input type="hidden" name="history" value="{{ record.symptoms.history }}">
+                    {% endif %}
+                    <button type="submit">Download PDF</button>
+                </form>
+            </td>
+
+            <!-- Doctor Reply -->
+            <td>
+                <form method="post" action="/doctor_reply" enctype="multipart/form-data">
+                    <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
+                    <input type="text" name="message" placeholder="Enter message">
+                    <input type="file" name="voice_reply" accept="audio/*">
+                    <button type="submit">Send Reply</button>
+                </form>
+
+                {% if record.doctor_message %}
+                    <p><strong>Message:</strong> {{ record.doctor_message }}</p>
+                {% endif %}
+
+                {% if record.doctor_voice_reply %}
+                    <audio controls>
+                        <source src="{{ '/' + record.doctor_voice_reply }}" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                {% endif %}
+            </td>
+
+            <!-- Delete Record -->
+            <td>
+                <form method="post" action="/delete_record" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                    <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
