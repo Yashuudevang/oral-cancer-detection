@@ -1,112 +1,581 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oral Cancer Detection</title>
-</head>
-<body style="text-align: center; font-family: Arial;">
-  <h2>🦷 Upload Oral Image for Cancer Detection</h2>
+  <style>
+    
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h2, h3 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Form Container */
+    form {
+      background-color: white;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 8px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Audio Controls */
+    audio {
+      margin-top: 15px;
+    }
+
+    /* Symptom Form Section */
+    h3 {
+      color: #007bff;
+    }
+
+    .form-section {
+      margin-bottom: 25px;
+    }
+
+    /* Instructions Section */
+    .instructions {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 600px) {
+      form {
+        padding: 20px;
+      }
+
+      input, select, textarea, button {
+        font-size: 14px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+    /* ------------------mobile view-------------------- */
+  
+  @media screen and (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav.desktop-nav {
+      display: none; /* Hide desktop navigation */
+    }
+
+    .mobile-menu-toggle {
+      display: block; /* Show mobile menu toggle button */
+    }
+
+    .form-section {
+      padding: 10px;
+    }
+
+    button {
+      font-size: 12px;
+    }
+  }
+
+  </style></head>
+<body>
+  <header class="sticky-header" style="
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+">
+  <div class="container" style="
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  ">
+    <a href="index.html" class="logo" style="
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.5rem;
+    ">
+      <span class="gradient-text" style="
+        background: linear-gradient(to right, #0284c7, #14b8a6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      ">Oral Lesion</span>
+    </a>
+
+    <nav class="desktop-nav" style="
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    ">
+      <a href="how-it-works.html" style="
+        color: #111827;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      ">How It Works</a>
+      <a href="about.html" style="
+        color: #111827;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      ">About</a>
+      <a href="faq.html" style="
+        color: #111827;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      ">FAQ</a>
+      <a href="contact.html" style="
+        color: #111827;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      ">Contact</a>
+      
+    </nav>
+
+    <button class="mobile-menu-toggle" aria-label="Toggle menu" style="
+      display: none;
+      background: none;
+      border: none;
+      color: #111827;
+      font-size: 1.5rem;
+      cursor: pointer;
+    ">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="mobile-menu" style="
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    padding: 1.5rem 0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 30;
+  ">
+    <div class="container" style="
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    ">
+      <a href="how-it-works.html" style="
+        display: block;
+        padding: 0.75rem 0;
+        color: #111827;
+        text-decoration: none;
+        font-size: 1.125rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+      ">How It Works</a>
+      <a href="about.html" style="
+        display: block;
+        padding: 0.75rem 0;
+        color: #111827;
+        text-decoration: none;
+        font-size: 1.125rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+      ">About</a>
+      <a href="faq.html" style="
+        display: block;
+        padding: 0.75rem 0;
+        color: #111827;
+        text-decoration: none;
+        font-size: 1.125rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+      ">FAQ</a>
+      <a href="contact.html" style="
+        display: block;
+        padding: 0.75rem 0;
+        color: #111827;
+        text-decoration: none;
+        font-size: 1.125rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+      ">Contact</a>
+    
+    </div>
+  </div>
+</header>
+
+  <h2>Upload Oral Image for Cancer Detection</h2>
 
   <form action="/predict" method="post" enctype="multipart/form-data" id="full-form">
-    <!-- Image Upload -->
-    <label for="image">Upload Image:</label><br>
-    <input type="file" name="image" accept="image/*" required><br><br>
+    <!-- Image Capture and Upload Section -->
+    <h3>Capture or Upload Oral Image</h3>
+    <div class="form-section">
+      <!-- Camera Preview -->
+      <video id="camera-preview" autoplay style="display: none; width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px;"></video>
+      
+      <!-- Captured Image Preview -->
+      <img id="captured-image" src="#" alt="Captured Image" style="display: none; max-width: 100%; height: auto; border: 1px solid #ddd; margin-top: 10px; border-radius: 8px;">
+
+      <!-- Buttons for Camera and Upload -->
+      <button type="button" id="start-camera-btn">Open Camera</button>
+      <button type="button" id="capture-btn" style="display: none;">Capture Image</button>
+      <button type="button" id="retake-btn" style="display: none;">Retake Image</button>
+      <br><br>
+
+      <!-- File Upload -->
+      <label for="image-upload" style="display: block; text-align: center;">Or Upload an Image:</label><br>
+      <style>
+        .upload-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+      
+        .custom-file-upload {
+            display: inline-block;
+            padding: 12px 24px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+      
+        .custom-file-upload:hover {
+            background-color: #0056b3;
+        }
+      
+        #image-upload {
+            display: none; /* Hide default */
+        }
+      
+        .file-name {
+            margin-top: 10px;
+            font-style: italic;
+            color: #333;
+        }
+      </style>
+      
+      <div class="upload-box">
+          <label for="image-upload" class="custom-file-upload">
+              📤 Upload Image
+          </label>
+          <input type="file" id="image-upload" name="image" accept="image/*" onchange="updateFileName()">
+          <div class="file-name" id="file-name">No file chosen</div>
+      </div>
+      
+
+      <!-- Hidden Input for Captured Image -->
+      <input type="hidden" id="captured-image-data" name="captured_image">
+    </div>
 
     <!-- Audio Upload -->
-    <h3>🗣️ Record Your Symptoms</h3>
-    <button type="button" id="start-btn">Start Recording</button>
-    <button type="button" id="stop-btn" disabled>Stop Recording</button><br><br>
+    <h3> Record Your Symptoms</h3>
+    <button type="button" id="record-btn"> Start Recording</button>
+    <span id="record-status"></span><br><br>
     <audio id="audio-playback" controls style="display: none;"></audio>
     <input type="hidden" name="audio_blob" id="audio-blob"><br>
 
     <!-- Symptoms Form -->
-    <h3>📝 Symptom Details</h3>
+    <h3>Symptom Details</h3>
+    <div class="form-section">
+      <label for="pain_level">Pain Level (0-10):</label>
+      <select name="pain_level" id="pain_level" required>
+        <option value="">Select</option>
+        <script>
+          for (let i = 0; i <= 10; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select><br><br>
 
-    <label for="pain_level">Pain Level (0-10):</label>
-    <select name="pain_level" id="pain_level" required>
-      <option value="">Select</option>
-      <!-- You can also use Jinja loop here if rendering from Flask -->
-      <script>
-        for (let i = 0; i <= 10; i++) {
-          document.write(`<option value="${i}">${i}</option>`);
-        }
-      </script>
-    </select><br><br>
+      <label for="bleeding">Bleeding:</label>
+      <select name="bleeding" required>
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select><br><br>
 
-    <label for="bleeding">Bleeding:</label>
-    <select name="bleeding" required>
-      <option value="">Select</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select><br><br>
+      <label for="swelling">Swelling:</label>
+      <select name="swelling" required>
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select><br><br>
 
-    <label for="swelling">Swelling:</label>
-    <select name="swelling" required>
-      <option value="">Select</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select><br><br>
+      <label for="duration">Duration of Symptoms:</label>
+      <input type="text" name="duration" placeholder="e.g. 2 weeks" required><br><br>
 
-    <label for="duration">Duration of Symptoms:</label>
-    <input type="text" name="duration" placeholder="e.g. 2 weeks" required><br><br>
-
-    <label for="history">Past Medical History:</label>
-    <textarea name="history" rows="3" cols="40" placeholder="Describe any relevant history..." required></textarea><br><br>
-
+      <label for="history">Past Medical History:</label>
+      <textarea name="history" rows="3" cols="40" placeholder="Describe any relevant history..." required></textarea><br><br>
+    </div>
+    <label for="doctor">Select Your Specialist:</label>
+    <select name="doctor" id="doctor">
+      <option value="dr_yashwanth_davangere">Dr. Yashwanth – Davangere</option>
+      <option value="dr_rahul_bangalore">Dr. Rahul – Bangalore</option>
+      <option value="dr_neha_mysore">Dr. Neha – Mysore</option>
+    </select>
+    
     <!-- Submit All Together -->
-    <button type="submit">🔍 Submit for Analysis</button>
+    <button type="submit" onclick="showLoading()">Submit</button>
+
   </form>
-
-  <script>
-    let mediaRecorder;
-    let audioChunks = [];
-
-    const startBtn = document.getElementById("start-btn");
-    const stopBtn = document.getElementById("stop-btn");
-    const audioPlayback = document.getElementById("audio-playback");
-    const audioBlobInput = document.getElementById("audio-blob");
-
-    startBtn.onclick = async () => {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(stream);
-      audioChunks = [];
-
-      mediaRecorder.ondataavailable = event => {
-        audioChunks.push(event.data);
-      };
-
-      mediaRecorder.onstop = async () => {
-        const blob = new Blob(audioChunks, { type: 'audio/wav' });
-        const url = URL.createObjectURL(blob);
-        audioPlayback.src = url;
-        audioPlayback.style.display = "block";
-
-        // Convert blob to base64 for form submission (Flask will decode it)
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          const base64data = reader.result;
-          audioBlobInput.value = base64data;
-        };
-        reader.readAsDataURL(blob);
-      };
-
-      mediaRecorder.start();
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
-    };
-
-    stopBtn.onclick = () => {
-      mediaRecorder.stop();
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-    };
-  </script>
-
-  <h3>📜 Instructions</h3>
+  <div id="loading" style="display:none;">
+    <div class="spinner"></div>
+    <p>Processing... Please wait</p>
+  </div>
+  
+  <!-- <h3>📜 Instructions</h3>
   <p>1. Upload an oral image.</p>
   <p>2. Record a voice note about symptoms (optional).</p>
   <p>3. Fill out the symptom form.</p>
   <p>4. Click “Submit for Analysis”.</p>
   <br><br>
-  <a href="/about">ℹ️ About</a>
+  <a href="/about">ℹ️ About</a> -->
+  
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    const recordBtn = document.getElementById("record-btn");
+    const recordStatus = document.getElementById("record-status");
+    const audioPlayback = document.getElementById("audio-playback");
+    const audioBlobInput = document.getElementById("audio-blob");
+    let isRecording = false;
+
+    recordBtn.onclick = async () => {
+      if (!isRecording) {
+        // Start recording
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = event => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+          const blob = new Blob(audioChunks, { type: 'audio/wav' });
+          const url = URL.createObjectURL(blob);
+          audioPlayback.src = url;
+          audioPlayback.style.display = "block";
+
+          // Convert blob to base64 for form submission
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            const base64data = reader.result;
+            audioBlobInput.value = base64data;
+          };
+          reader.readAsDataURL(blob);
+        };
+
+        mediaRecorder.start();
+        isRecording = true;
+        recordBtn.textContent = "⏹️ Stop Recording";
+        recordStatus.textContent = "Recording...";
+        recordStatus.style.color = "red";
+      } else {
+        // Stop recording
+        mediaRecorder.stop();
+        isRecording = false;
+        recordBtn.textContent = "🎙️ Start Recording";
+        recordStatus.textContent = "Recording stopped";
+        recordStatus.style.color = "green";
+      }
+    };
+
+    const imageInput = document.getElementById("image-input");
+    const imagePreview = document.getElementById("image-preview");
+
+    imageInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = "block";
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.style.display = "none";
+      }
+    });
+  </script>
+
+  <script>
+  const startCameraBtn = document.getElementById("start-camera-btn");
+  const captureBtn = document.getElementById("capture-btn");
+  const retakeBtn = document.getElementById("retake-btn");
+  const cameraPreview = document.getElementById("camera-preview");
+  const capturedImage = document.getElementById("captured-image");
+  const capturedImageData = document.getElementById("captured-image-data");
+  const imageUpload = document.getElementById("image-upload");
+
+  let cameraStream = null;
+
+  // Open Camera
+  startCameraBtn.addEventListener("click", async () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        cameraPreview.srcObject = cameraStream;
+        cameraPreview.style.display = "block";
+        captureBtn.style.display = "inline-block";
+        startCameraBtn.style.display = "none";
+      } catch (error) {
+        alert("Unable to access the camera. Please check your permissions.");
+      }
+    } else {
+      alert("Camera is not supported on this device.");
+    }
+  });
+
+  // Capture Image
+  captureBtn.addEventListener("click", () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = cameraPreview.videoWidth;
+    canvas.height = cameraPreview.videoHeight;
+    const context = canvas.getContext("2d");
+    context.drawImage(cameraPreview, 0, 0, canvas.width, canvas.height);
+
+    // Convert the captured image to a data URL
+    const imageDataUrl = canvas.toDataURL("image/png");
+    capturedImage.src = imageDataUrl;
+    capturedImage.style.display = "block";
+    capturedImageData.value = imageDataUrl; // Store the image data in the hidden input
+
+    // Stop the camera
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraPreview.style.display = "none";
+    captureBtn.style.display = "none";
+    retakeBtn.style.display = "inline-block";
+  });
+
+  // Retake Image
+  retakeBtn.addEventListener("click", () => {
+    capturedImage.style.display = "none";
+    capturedImageData.value = ""; // Clear the hidden input
+    retakeBtn.style.display = "none";
+    startCameraBtn.style.display = "inline-block";
+  });
+
+  // Handle Image Upload
+  imageUpload.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        capturedImage.src = e.target.result;
+        capturedImage.style.display = "block";
+        capturedImageData.value = ""; // Clear the captured image data
+        cameraPreview.style.display = "none";
+        captureBtn.style.display = "none";
+        retakeBtn.style.display = "inline-block";
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+  });
+  
+  function showLoading() {
+    document.getElementById("loading").style.display = "block";
+  }
+  function updateFileName() {
+      const input = document.getElementById('image-upload');
+      const fileNameDiv = document.getElementById('file-name');
+      fileNameDiv.textContent = input.files.length > 0 ? input.files[0].name : 'No file chosen';
+  }
+</script>
+
 </body>
 </html>
+``` 
