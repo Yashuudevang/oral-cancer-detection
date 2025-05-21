@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oral Lesion - AI-Powered Oral Cancer Detection Platform</title>
+    <meta name="description" content="Oral Lesion uses AI technology to detect potential oral lesions and early signs of cancer. Early detection saves lives. Developed by GM University." />
+    <meta name="author" content="GM University" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='rahulstyles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </head>
+
+  <body>
+    <header class="sticky-header">
+      <div class="container">
+        <a href= "http://127.0.0.1:5000/" class="logo">
+          <span class="gradient-text">Oral Lesion</span>
+        </a>
+
+        <nav class="desktop-nav">
+          <a href="{{ url_for('static', filename='how-it-works.html') }}">How It Works</a>
+          <a href="{{ url_for('static', filename='about.html') }}">About</a>
+          <a href="{{ url_for('static', filename='faq.html') }}">FAQ</a>
+          <a href="{{ url_for('static', filename='contact.html') }}">Contact</a>
+          <a href="{{ url_for('index_page') }}" class="btn primary-btn">
+            Start Screening Now
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="{{ url_for('patient_dashboard') }}" class="btn">Dashboard</a>
+        
+          
+          <div class="auth-buttons">
+            <!-- <a href="http://localhost/auth_portal/login.php" class="btn btn-outline-light">Log in</a>
+
+            <a href="http://localhost/auth_portal/signup.php"  class="btn btn-primary">Sign up</a> -->
+            <!-- <a href="/index" >
+                <button>Start Screening</button>
+            </a> -->
+          </div>
+        </nav>
+
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="mobile-menu">
+        <div class="container">
+            <a href="{{ url_for('static', filename='how-it-works.html') }}">How It Works</a>
+            <a href="{{ url_for('static', filename='about.html') }}">About</a>
+          <a href="faq.html">FAQ</a>
+          <a href="/contact.html">Contact</a>
+          <a href="{{ url_for('index_page') }}" class="btn primary-btn">
+            Start Screening Now
+            <i class="fas fa-arrow-right"></i>
+          </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="fade-in">Welcome <span class="gradient-text">Guest</span></h1>
+            <p class="fade-in">Oral Lesion uses AI technology to detect potential oral lesions and early signs of cancer through image analysis.</p>
+            <div class="cta-buttons fade-in">
+                <!-- <a href="/index"  class="btn primary-btn">
+                Start Screening Now -->
+                <a href="{{ url_for('index_page') }}" class="btn primary-btn">
+                  Start Screening Now
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              <a href="{{ url_for('static', filename='how-it-works.html') }}"class="btn outline-btn">
+                How It Works
+              </a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Doctor examining patient">
+            
+            <div class="stat-card top-right">
+              <div class="stat-title">Early Detection</div>
+              <div class="stat-value">Increases survival rate by 90%</div>
+            </div>
+            
+            <div class="stat-card bottom-left">
+              <div class="stat-title">AI Analysis</div>
+              <div class="stat-value">Powered by Team Bytee</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section class="services" id="services">
+        <div class="container">
+          <div class="section-header">
+            <h2>How Oral Lesion Protects Your Health</h2>
+            <p>Our AI-powered platform helps detect early signs of oral cancer through advanced image analysis technology.</p>
+          </div>
+
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-camera"></i>
+              </div>
+              <h3>Early Detection</h3>
+              <p>Identify potential oral lesions before they develop into more serious conditions.</p>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3>Safe & Secure</h3>
+              <p>Your health data is encrypted and processed with the highest security standards.</p>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h3>Quick Results</h3>
+              <p>Get an assessment within minutes, without waiting for an appointment.</p>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3>Advanced AI</h3>
+              <p>Powered by cutting-edge machine learning algorithms developed by researchers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="stats">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value">90%</div>
+              <div class="stat-label">Early Detection Success</div>
+              <p>When caught early, oral cancer has a high treatment success rate.</p>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-value">60k+</div>
+              <div class="stat-label">Scans Analyzed</div>
+              <p>Our AI has analyzed thousands of oral images with high accuracy.</p>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-value">95%</div>
+              <div class="stat-label">Accuracy Rate</div>
+              <p>Our AI detection systems have been verified by medical professionals.</p>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-value">24/7</div>
+              <div class="stat-label">Availability</div>
+              <p>Access our screening technology anytime, anywhere.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about" id="about">
+        <div class="container">
+          <div class="about-content">
+            <div class="about-text">
+              <h2>About OralVision</h2>
+              <div class="divider"></div>
+              
+              <p>OralVision is a cutting-edge platform developed at GM University that uses artificial intelligence to detect potential oral lesions and early signs of oral cancer from images.</p>
+              
+              <p>Our mission is to improve early detection rates of oral cancer, which significantly increases survival rates and treatment success. By making screening accessible and convenient, we aim to save lives through early intervention.</p>
+              
+              <div class="features">
+                <div class="feature">
+                  <i class="fas fa-shield-alt"></i>
+                  <div>
+                    <h3>Privacy Focused</h3>
+                    <p>Your health data is encrypted and kept secure at all times.</p>
+                  </div>
+                </div>
+                
+                <div class="feature">
+                  <i class="fas fa-award"></i>
+                  <div>
+                    <h3>Research-Backed</h3>
+                    <p>Developed by researchers and medical professionals at GM University.</p>
+                  </div>
+                </div>
+                
+                <div class="feature">
+                  <i class="fas fa-heartbeat"></i>
+                  <div>
+                    <h3>Medically Reviewed</h3>
+                    <p>Our technology is designed in collaboration with oral health specialists.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="about-image">
+              <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Medical research">
+              <div class="quote-card">
+                <p>"Early detection of oral cancer can increase survival rates by up to 90%."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq" id="faq">
+        <div class="container">
+          <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about our oral cancer detection platform.</p>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question">
+                How accurate is the AI in detecting oral cancer?
+                <i class="fas fa-plus"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Our AI technology has been trained on thousands of verified images and achieves high accuracy rates in identifying potential oral lesions. However, it's important to note that OralVision is a screening tool and not a replacement for professional medical diagnosis. We always recommend following up with a healthcare provider for any concerning findings.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Is my health data secure on your platform?
+                <i class="fas fa-plus"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Yes, we take data security and privacy extremely seriously. All images and health information are encrypted both in transit and at rest. We comply with global healthcare data regulations and never share your information with third parties without your explicit consent.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                How should I take the image of my mouth?
+                <i class="fas fa-plus"></i>
+              </button>
+              <div class="faq-answer">
+                <p>For best results, use a bright light source (natural daylight works well), open your mouth wide, and take a clear, focused image of the area of concern. We recommend having someone help you take the photo if possible. The app provides detailed image capture guidance to ensure optimal results.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                How long does it take to get results?
+                <i class="fas fa-plus"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Our AI analysis provides results almost instantly, usually within seconds of uploading your image. However, in some cases, a more detailed review may be necessary, which could take a few minutes.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                What should I do if OralVision detects a potential issue?
+                <i class="fas fa-plus"></i>
+              </button>
+              <div class="faq-answer">
+                <p>If our system identifies a potential concern, we'll provide clear next steps and recommend consulting with a healthcare provider. Early detection is crucial for successful treatment of oral cancer, so prompt follow-up is important. The results will include information about the finding and guidance for discussing it with your doctor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>OralVision</h3>
+            <p>Advancing oral cancer detection through AI-powered image analysis for early diagnosis.</p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul class="contact-info">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>
+                  GM University<br>
+                  P.B. Road, Davanagere<br>
+                  Davangere - 577006<br>
+                  Karnataka
+                </span>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:info@gmu.ac.in">info@gmu.ac.in</a>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+919611818058">9611818058</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Working Hours</h3>
+            <ul class="hours">
+              <li><span>Monday - Friday:</span> <span>9:00 AM - 5:00 PM</span></li>
+              <li><span>Saturday:</span> <span>9:00 AM - 1:00 PM</span></li>
+              <li><span>Sunday:</span> <span>Closed</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 OralVision, GM University. All rights reserved.</p>
+          <a href="https://gmu.ac.in" target="_blank" rel="noopener noreferrer" class="university-link">
+            Visit GM University <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
+

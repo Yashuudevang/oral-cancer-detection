@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard</title>
+    <title>Patient Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-    <h1>Doctor Dashboard</h1>
+    <h1>Patient Dashboard</h1>
     <table>
         <thead>
             <tr>
@@ -59,10 +59,11 @@
                 <th>Confidence</th>
                 <th>Symptoms</th>
                 <th>Report</th>
+                <th>Doctor's Reply</th> <!-- Add this column -->
             </tr>
         </thead>
         <tbody>
-            {% for record in records %}
+            {% for record in patient_records %}
             <tr>
                 <td><img src="{{ record.image_path }}" alt="Uploaded Image"></td>
                 <td>{{ record.prediction }}</td>
@@ -76,21 +77,18 @@
                         <li>History: {{ record.symptoms.history }}</li>
                     </ul>
                 </td>
-                <td>
-                    <form action="{{ url_for('doctor_reply') }}" method="POST">
-                        <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
-                        <textarea name="message" placeholder="Enter your reply here..." required></textarea>
-                        <button type="submit" class="btn">Send Reply</button>
-                    </form>
-                </td>
+                
                 <td>
                     <form action="{{ url_for('download_pdf') }}" method="POST">
                         <input type="hidden" name="prediction" value="{{ record.prediction }}">
                         <input type="hidden" name="confidence" value="{{ record.confidence }}">
                         <input type="hidden" name="image_path" value="{{ record.image_path }}">
-                        <input type="hidden" name="timestamp" value="{{ record.timestamp }}">
                         <button type="submit" class="btn">Download Report</button>
                     </form>
+                </td>
+                
+                <td>
+                    <p><strong>Doctor's Reply:</strong> {{ record.doctor_reply or "No reply yet" }}</p> <!-- Display doctor's reply -->
                 </td>
                 <td>
                     <form action="{{ url_for('delete_patient_record') }}" method="POST" style="display: inline;">

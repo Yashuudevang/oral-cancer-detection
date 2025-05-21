@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        button, input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .upload-btn {
+            background-color: #17a2b8;
+        }
+
+        .upload-btn:hover {
+            background-color: #138496;
+        }
+
+        .download-btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .download-btn:hover {
+            background-color: #e0a800;
+        }
+
+        textarea {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Doctor Dashboard - Patient Records</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Prediction</th>
+                <th>Confidence</th>
+                <th>Audio Note</th>
+                <th>Download Report</th>
+                <th>Doctor Reply</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                    <!-- Delete Button -->
+                    <form action="/delete_record" method="post" style="display: inline;">
+                        <input type="hidden" name="record_id" value="{{ record.id }}">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

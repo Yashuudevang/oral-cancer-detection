@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Specialist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: white;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Find Specialist</h2>
+    <form action="/submit_specialist" method="POST">
+        <label for="state">Select State:</label>
+        <select id="state" name="state" required>
+            <option value="">-- Select State --</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <!-- Add more states as needed -->
+        </select>
+
+        <label for="district">Select District:</label>
+        <select id="district" name="district" required>
+            <option value="">-- Select District --</option>
+        </select>
+
+        <label for="doctor">Select Doctor:</label>
+        <select id="doctor" name="doctor" required>
+            <option value="">-- Select Doctor --</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const stateDistrictMap = {
+            "Karnataka": ["Bangalore", "Mysore", "Davanagere"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"]
+        };
+
+        const districtDoctorMap = {
+            "Bangalore": ["Dr. Yashwanth", "Dr. Neha"],
+            "Mysore": ["Dr. Rahul", "Dr. Priya"],
+            "Davanagere": ["Dr. Anil", "Dr. Vijay"],
+            "Mumbai": ["Dr. Rajesh", "Dr. Sneha"],
+            "Pune": ["Dr. Kavita", "Dr. Arjun"],
+            "Nagpur": ["Dr. Meera", "Dr. Suresh"],
+            "Chennai": ["Dr. Ravi", "Dr. Divya"],
+            "Coimbatore": ["Dr. Kiran", "Dr. Asha"],
+            "Madurai": ["Dr. Nithya", "Dr. Mohan"]
+        };
+
+        const stateDropdown = document.getElementById("state");
+        const districtDropdown = document.getElementById("district");
+        const doctorDropdown = document.getElementById("doctor");
+
+        stateDropdown.addEventListener("change", () => {
+            const selectedState = stateDropdown.value;
+            districtDropdown.innerHTML = '<option value="">-- Select District --</option>';
+            doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+
+            if (selectedState && stateDistrictMap[selectedState]) {
+                stateDistrictMap[selectedState].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtDropdown.appendChild(option);
+                });
+            }
+        });
+
+        districtDropdown.addEventListener("change", () => {
+            const selectedDistrict = districtDropdown.value;
+            doctorDropdown.innerHTML = '<option value="">-- Select Doctor --</option>';
+
+            if (selectedDistrict && districtDoctorMap[selectedDistrict]) {
+                districtDoctorMap[selectedDistrict].forEach(doctor => {
+                    const option = document.createElement("option");
+                    option.value = doctor;
+                    option.textContent = doctor;
+                    doctorDropdown.appendChild(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
