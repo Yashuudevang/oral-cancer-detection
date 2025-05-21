@@ -28,9 +28,9 @@ CONSTANT_IMAGE_PATH = os.path.join("static", "Darling-Figure-2.jpg")
 # Global list to store patient records
 patient_records = []
 
-@app.route('/')
+@app.route("/index")
 def index():
-    return render_template('main.html')
+    return render_template("index.html")
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
@@ -595,6 +595,6 @@ def generate_fake_graph(output_path):
 # if name == 'main':
 #     app.run(debug=True)
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run
 
 
