@@ -1,3 +1,5 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 from flask import Flask, render_template, request, send_file, redirect, url_for, session
 from keras.models import load_model
 from keras.preprocessing import image
@@ -18,7 +20,7 @@ app.secret_key = "your_secret_key"  # Required for session management
 # Dummy user database
 users = {}
 
-model = load_model("oral_cancer_model.h5")
+model = load_model("oral_cancer_model.h5", compile=False)
 
 UPLOAD_AUDIO_FOLDER = os.path.join("static", "audio")
 UPLOAD_IMAGE_FOLDER = os.path.join("static", "uploads")
@@ -27,6 +29,10 @@ os.makedirs(UPLOAD_AUDIO_FOLDER, exist_ok=True)
 CONSTANT_IMAGE_PATH = os.path.join("static", "Darling-Figure-2.jpg")
 # Global list to store patient records
 patient_records = []
+
+@app.route("/")
+def home():
+    return render_template("main.html")
 
 @app.route("/index")
 def index():
@@ -595,6 +601,5 @@ def generate_fake_graph(output_path):
 # if name == 'main':
 #     app.run(debug=True)
 if __name__ == "__main__":
-    app.run
-
+    app.run(host="0.0.0.0", port=10000)
 
